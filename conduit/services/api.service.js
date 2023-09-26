@@ -15,7 +15,22 @@ module.exports = {
 			path: "/api",
 
 			authorization: true,
-			autoAliases: true,
+			aliases: {
+				"POST users/create":"users.create",
+				"POST users/login":"users.login",
+				"GET users/me":"users.me",
+				"PUT user/updateMyself":"users.updateMyself",
+				"GET users/profiles/:username":"users.profile",
+				"POST  users/profiles/:username/follow":"users.follow",
+				"DELETE users/profiles/:username/follow":"users.unfollow",
+				"POST Products/createProduct":"products.create",
+				"PUT Products/updateProduct/:id":"products.update",
+				"DELETE Products/delete/:productName":"products.delete",
+				"DELETE Products/delete-all":"products.deleteAll",
+				"GET Products/allProducts":"products.readALL",
+				"GET Products/Product/:productName":"products.readOne",
+
+			},
 
 			// Set CORS headers
 			cors: true,

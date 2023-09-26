@@ -33,6 +33,7 @@ module.exports = {
 		populates: {
 			author: {
 				action: "users.get",
+				//the fileds come in response 
 				params: {
 					fields: ["username", "bio", "image"]
 				}
@@ -54,6 +55,8 @@ module.exports = {
 			async favoritesCount(ids, articles, rule, ctx) {
 				return this.Promise.all(articles.map(async article => article.favoritesCount = await ctx.call("favorites.count", { article: article._id.toString() })));
 			}
+
+
 		},
 
 		// Validation schema for new entities
@@ -82,9 +85,9 @@ module.exports = {
 		create: {
 			auth: "required",
 			rest: "POST /",
-			params: {
-				article: { type: "object" }
-			},
+			// params: {
+			// 	article: { type: "object" }
+			// },
 			async handler(ctx) {
 				let entity = ctx.params.article;
 				await this.validateEntity(entity);

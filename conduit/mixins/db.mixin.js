@@ -5,14 +5,17 @@ const mkdir = require("mkdirp").sync;
 
 const DbService = require("moleculer-db");
 
+const DB="mongodb://localhost/conduit";
+
+
 module.exports = function (collection) {
-	if (process.env.MONGO_URI) {
+	if (DB) {
 		// Mongo adapter
 		const MongoAdapter = require("moleculer-db-adapter-mongo");
 
 		return {
 			mixins: [DbService],
-			adapter: new MongoAdapter(process.env.MONGO_URI, { useNewUrlParser: true, useUnifiedTopology: true }),
+			adapter: new MongoAdapter(DB, { useNewUrlParser: true, useUnifiedTopology: true }),
 			collection
 		};
 	}

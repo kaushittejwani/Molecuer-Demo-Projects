@@ -25,7 +25,7 @@ module.exports = {
 		/** REST Basepath */
 		rest: "/",
 		/** Secret for JWT */
-		JWT_SECRET: process.env.JWT_SECRET || "jwt-conduit-secret",
+		JWT_SECRET: "hghghghhghghghghg" || "jwt-conduit-secret",
 
 		/** Public fields */
 		fields: ["_id", "username", "email", "bio", "image"],
@@ -35,8 +35,8 @@ module.exports = {
 			username: { type: "string", min: 2 },
 			password: { type: "string", min: 6 },
 			email: { type: "email" },
-			bio: { type: "string", optional: true },
-			image: { type: "string", optional: true },
+			// bio: { type: "string", optional: true },
+			// image: { type: "string", optional: true },
 		}
 	},
 
@@ -183,11 +183,11 @@ module.exports = {
 		 * @returns {Object} User entity
 		 */
 		updateMyself: {
-			auth: "required",
+			 auth: "required",
 			rest: "PUT /user",
 			params: {
 				user: { type: "object", props: {
-					username: { type: "string", min: 2, optional: true, pattern: /^[a-zA-Z0-9]+$/ },
+					username: { type: "string", min: 2,optional:true, pattern: /^[a-zA-Z0-9]+$/ },
 					password: { type: "string", min: 6, optional: true },
 					email: { type: "email", optional: true },
 					bio: { type: "string", optional: true },
