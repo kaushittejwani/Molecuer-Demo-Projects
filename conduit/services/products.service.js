@@ -3,6 +3,15 @@ const { MoleculerClientError } = require("moleculer").Errors;
 
 const DbService = require("../mixins/db.mixin");
 const CacheCleanerMixin = require("../mixins/cache.cleaner.mixin");
+const requestLoggerMiddleware = async (ctx, next) => {
+	ctx.hy="by";
+	console.log(`Received request to create a product: ${JSON.stringify(ctx.params.product)}`);
+	if (next) {
+	  // eslint-disable-next-line no-mixed-spaces-and-tabs
+	  await next(ctx);
+	}
+};
+
 
 module.exports = {
 	name: "products",
@@ -17,7 +26,9 @@ module.exports = {
 			productName: { type:"string" },
 			productDescription: { type:"string" }
 
-		}
+		},
+		
+		
 
 	},
 	actions:{
@@ -28,6 +39,7 @@ module.exports = {
 			},
 			async handler(ctx){
 				let entity=ctx.params.product;
+				
 				await this.validateEntity(entity);
 				if(entity.productName){
 					const found =await this.adapter.findOne( { productName:entity.productName });
@@ -43,12 +55,21 @@ module.exports = {
 					}
 				}
 				entity.createdAt=new Date();
+				entity.hy=ctx.hy;
 				const product=await this.adapter.insert(entity);
 				return product;
 				
 				
 			}
 		},
+	},hooks:{
+		before:{
+		 create:requestLoggerMiddleware
+		},
+				
+	},
+		
+		
 		update:{
 			rest:"/updateProduct/:id",
 			params:{
@@ -145,7 +166,6 @@ module.exports = {
 		
 		
 		
-	}
-		
 };
+		
 

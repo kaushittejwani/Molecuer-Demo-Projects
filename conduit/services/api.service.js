@@ -90,6 +90,8 @@ module.exports = {
 				let type = req.headers.authorization.split(" ")[0];
 				if (type === "Token" || type === "Bearer")
 					token = req.headers.authorization.split(" ")[1];
+				console.log("token",token);
+				console.log("type",type);
 			}
 
 			let user;

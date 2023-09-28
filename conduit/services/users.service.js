@@ -53,6 +53,7 @@ module.exports = {
 		 * @returns {Object} Created entity & token
 		 */
 		create: {
+			auth: "required",
 			rest: "POST /users",
 			params: {
 				user: { type: "object" }
